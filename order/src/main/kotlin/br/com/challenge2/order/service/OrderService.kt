@@ -1,5 +1,6 @@
 package br.com.challenge2.order.service
 
+import br.com.challenge2.order.avro.OrderAvro
 import br.com.challenge2.order.core.domain.Order
 import br.com.challenge2.order.dto.OrderDto
 import br.com.challenge2.order.repository.OrderRepository
@@ -8,6 +9,7 @@ import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Service
 
 @Service
@@ -16,11 +18,20 @@ class OrderService {
     lateinit var orderRepository : OrderRepository
     @Autowired
     lateinit var mapper : ModelMapper
+    @Autowired
+    lateinit var template : KafkaTemplate<String, OrderAvro>
 
     fun persistOrder(dto : OrderDto) : OrderDto{
         val order : Order = mapper.map(dto, Order::class.java)
 
+        val orderAvro = OrderAvro()
+        orderAvro.id = order.id
+        orderAvro.date = order.date.toInstant()
+        orderAvro.clientEmail = order.clientEmail
+        orderAvro.listOfProducts = order.listOfProducts.toMutableList()
+
         orderRepository.save(order)
+        template.send("order-sent", orderAvro.clientEmail, orderAvro)
 
         return mapper.map(order, OrderDto::class.java)
     }
