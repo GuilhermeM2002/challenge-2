@@ -1,4 +1,4 @@
-package br.com.challenge2.client.dto
+package br.com.challenge2.client.application.dto
 
 import br.com.challenge2.client.core.domain.Address
 

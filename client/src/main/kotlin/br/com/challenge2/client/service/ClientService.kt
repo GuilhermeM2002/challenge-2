@@ -1,7 +1,7 @@
 package br.com.challenge2.client.service
 
 import br.com.challenge2.client.core.domain.Client
-import br.com.challenge2.client.dto.ClientDto
+import br.com.challenge2.client.application.dto.ClientDto
 import br.com.challenge2.client.repository.ClientRepository
 import jakarta.persistence.EntityNotFoundException
 import org.modelmapper.ModelMapper
@@ -15,7 +15,7 @@ class ClientService {
     @Autowired
     lateinit var mapper : ModelMapper
 
-    fun persistClient(dto : ClientDto) : ClientDto{
+    fun persistClient(dto : ClientDto) : ClientDto {
         val client : Client = mapper.map(dto, Client::class.java)
 
         clientRepository.save(client)
@@ -23,7 +23,7 @@ class ClientService {
         return mapper.map(client, ClientDto::class.java)
     }
 
-    fun updateClient(dto : ClientDto, id : Long) : ClientDto{
+    fun updateClient(dto : ClientDto, id : Long) : ClientDto {
         val clientUpdate = clientRepository.findById(id)
             .orElseThrow { EntityNotFoundException("Client with ID $id not found") }
 
@@ -40,7 +40,7 @@ class ClientService {
         clientRepository.delete(clientDelete)
     }
 
-    fun findClientByEmail(email : String) : ClientDto{
+    fun findClientByEmail(email : String) : ClientDto {
         val client : Client= clientRepository.findByEmail(email)
 
         return mapper.map(client, ClientDto::class.java)

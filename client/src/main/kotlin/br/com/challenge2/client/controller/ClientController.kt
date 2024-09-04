@@ -1,6 +1,6 @@
 package br.com.challenge2.client.controller
 
-import br.com.challenge2.client.dto.ClientDto
+import br.com.challenge2.client.application.dto.ClientDto
 import br.com.challenge2.client.service.ClientService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity

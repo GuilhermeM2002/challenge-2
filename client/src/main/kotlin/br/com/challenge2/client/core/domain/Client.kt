@@ -1,6 +1,6 @@
 package br.com.challenge2.client.core.domain
 
-import br.com.challenge2.client.dto.ClientDto
+import br.com.challenge2.client.application.dto.ClientDto
 import jakarta.persistence.*
 
 @Entity
@@ -8,18 +8,48 @@ import jakarta.persistence.*
 data class Client (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id : Long? = null,
+    private val id : Long? = null,
 
     @Column(name = "name", nullable = false)
-    var name : String,
+    private var name : String,
 
     @Column(name = "email", nullable = false, unique = true)
-    var email : String,
+    private var email : String,
 
     @OneToMany(mappedBy = "client", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    var addresses: List<Address> = mutableListOf()
+    private var addresses: List<Address> = mutableListOf()
 ){
-    fun updateByDto(dto : ClientDto){
+    // Getters
+    fun getId(): Long? {
+        return id
+    }
+
+    fun getName(): String {
+        return name
+    }
+
+    fun getEmail(): String {
+        return email
+    }
+
+    fun getAddresses(): List<Address> {
+        return addresses
+    }
+
+    // Setters
+    fun setName(name: String) {
+        this.name = name
+    }
+
+    fun setEmail(email: String) {
+        this.email = email
+    }
+
+    fun setAddresses(addresses: List<Address>) {
+        this.addresses = addresses
+    }
+
+    fun updateByDto(dto: ClientDto) {
         this.email = dto.email
         this.name = dto.name
     }
