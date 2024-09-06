@@ -1,4 +1,4 @@
-package br.com.challenge2.product.dto
+package br.com.challenge2.product.application.dto
 
 class ProductDto (
     val id : Long? = null,

@@ -1,6 +1,6 @@
 package br.com.challenge2.product.core.domain
 
-import br.com.challenge2.product.dto.ProductDto
+import br.com.challenge2.product.application.dto.ProductDto
 import jakarta.persistence.*
 
 @Entity
@@ -8,20 +8,44 @@ import jakarta.persistence.*
 class Product (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id : Long? = null,
+    private val id : Long? = null,
 
     @Column(name = "name", nullable = false)
-    var name : String,
+    private var name : String,
 
     @Column(name = "description", nullable = false)
-    var description : String,
+    private var description : String,
 
     @Column(name = "price", nullable = false)
-    var price : Double,
+    private var price : Double,
 
     @Column(name = "quantity", nullable = false)
-    var quantity : Int
+    private var quantity : Int
 ){
+    // Getters
+    fun getId(): Long? = id
+    fun getName(): String = name
+    fun getDescription(): String = description
+    fun getPrice(): Double = price
+    fun getQuantity(): Int = quantity
+
+    // Setters
+    fun setName(name: String) {
+        this.name = name
+    }
+
+    fun setDescription(description: String) {
+        this.description = description
+    }
+
+    fun setPrice(price: Double) {
+        this.price = price
+    }
+
+    fun setQuantity(quantity: Int) {
+        this.quantity = quantity
+    }
+
     fun updateProduct(dto : ProductDto) {
         this.name = dto.name
         this.description = dto.description

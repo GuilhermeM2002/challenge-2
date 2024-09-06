@@ -1,7 +1,7 @@
 package br.com.challenge2.product.service
 
 import br.com.challenge2.product.core.domain.Product
-import br.com.challenge2.product.dto.ProductDto
+import br.com.challenge2.product.application.dto.ProductDto
 import br.com.challenge2.product.repository.ProductRepository
 import jakarta.persistence.EntityNotFoundException
 import org.modelmapper.ModelMapper
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service
 @Service
 class ProductService {
     @Autowired
-    lateinit var productRepository : ProductRepository
+    private lateinit var productRepository : ProductRepository
     @Autowired
-    lateinit var mapper : ModelMapper
+    private lateinit var mapper : ModelMapper
 
-    fun persistProduct(dto : ProductDto) : ProductDto{
+    fun persistProduct(dto : ProductDto) : ProductDto {
         val product : Product = mapper.map(dto, Product::class.java)
 
         productRepository.save(product)
@@ -25,7 +25,7 @@ class ProductService {
         return mapper.map(product, ProductDto::class.java)
     }
 
-    fun updateProduct(dto : ProductDto, id : Long) : ProductDto{
+    fun updateProduct(dto : ProductDto, id : Long) : ProductDto {
         val productUpdate = productRepository.findById(id)
             .orElseThrow { EntityNotFoundException("Product with ID $id not found") }
 
@@ -42,7 +42,7 @@ class ProductService {
         productRepository.delete(productDelete)
     }
 
-    fun findProductById(id : Long) : ProductDto{
+    fun findProductById(id : Long) : ProductDto {
         val product : Product = productRepository.findById(id)
             .orElseThrow{ EntityNotFoundException("Product with ID $id not found") }
 
