@@ -8,18 +8,55 @@ import java.time.OffsetDateTime
 class Order (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id : Long? = null,
+    private val id : Long? = null,
 
     @Column(name = "products", nullable = false)
-    var listOfProducts : Set<Long>,
+    private var listOfProducts : Set<Long>,
 
     @Column(name = "email", nullable = false)
-    var clientEmail : String,
+    private var clientEmail : String,
 
     @Column(name = "address", nullable = false)
-    var address : String,
+    private var address : String,
 
     @Column(name = "date_order", nullable = false)
-    var date : OffsetDateTime
+    private var date : OffsetDateTime
 ){
+    // Getters
+    fun getId(): Long? {
+        return id
+    }
+
+    fun getListOfProducts(): Set<Long> {
+        return listOfProducts
+    }
+
+    fun getClientEmail(): String {
+        return clientEmail
+    }
+
+    fun getAddress(): String {
+        return address
+    }
+
+    fun getDate(): OffsetDateTime {
+        return date
+    }
+
+    // Setters
+    fun setListOfProducts(listOfProducts: Set<Long>) {
+        this.listOfProducts = listOfProducts
+    }
+
+    fun setClientEmail(clientEmail: String) {
+        this.clientEmail = clientEmail
+    }
+
+    fun setAddress(address: String) {
+        this.address = address
+    }
+
+    fun setDate(date: OffsetDateTime) {
+        this.date = date
+    }
 }

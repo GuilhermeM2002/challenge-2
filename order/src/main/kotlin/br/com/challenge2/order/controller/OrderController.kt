@@ -1,6 +1,6 @@
 package br.com.challenge2.order.controller
 
-import br.com.challenge2.order.dto.OrderDto
+import br.com.challenge2.order.application.dto.OrderDto
 import br.com.challenge2.order.service.OrderService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
@@ -14,7 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder
 @RequestMapping("/order")
 class OrderController {
     @Autowired
-    lateinit var service : OrderService
+    private lateinit var service : OrderService
 
     @PostMapping
     @Transactional

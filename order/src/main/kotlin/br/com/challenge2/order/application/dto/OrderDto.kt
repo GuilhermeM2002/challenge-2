@@ -1,4 +1,4 @@
-package br.com.challenge2.order.dto
+package br.com.challenge2.order.application.dto
 
 import java.time.OffsetDateTime
 
