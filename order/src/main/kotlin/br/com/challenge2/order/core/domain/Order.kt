@@ -16,8 +16,11 @@ class Order (
     @Column(name = "email", nullable = false)
     private var clientEmail : String,
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address")
     private var address : String,
+
+    @Column(name = "price")
+    private var totalPrice : Double,
 
     @Column(name = "date_order", nullable = false)
     private var date : OffsetDateTime
@@ -39,6 +42,10 @@ class Order (
         return address
     }
 
+    fun getTotalPrice(): Double {
+        return totalPrice
+    }
+
     fun getDate(): OffsetDateTime {
         return date
     }
@@ -54,6 +61,10 @@ class Order (
 
     fun setAddress(address: String) {
         this.address = address
+    }
+
+    fun setTotalPrice(totalPrice : Double) {
+        this.totalPrice = totalPrice
     }
 
     fun setDate(date: OffsetDateTime) {
