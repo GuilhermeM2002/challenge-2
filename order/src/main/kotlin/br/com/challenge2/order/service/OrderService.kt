@@ -23,17 +23,18 @@ class OrderService {
 
     fun persistOrder(dto : OrderDto) : OrderDto {
         val order : Order = mapper.map(dto, Order::class.java)
+        val savedOrder : Order = orderRepository.save(order)
 
         val orderAvro = OrderAvro()
-        orderAvro.id = order.getId()
-        orderAvro.date = order.getDate().toInstant()
-        orderAvro.clientEmail = order.getClientEmail()
-        orderAvro.listOfProducts = order.getListOfProducts().toMutableList()
+        orderAvro.id = savedOrder.getId()
+        orderAvro.date = savedOrder.getDate().toInstant()
+        orderAvro.clientEmail = savedOrder.getClientEmail()
+        orderAvro.listOfProducts = savedOrder.getListOfProducts().toMutableList()
 
-        orderRepository.save(order)
+
         template.send("order-sent", orderAvro.clientEmail, orderAvro)
 
-        return mapper.map(order, OrderDto::class.java)
+        return mapper.map(savedOrder, OrderDto::class.java)
     }
 
     fun deleteOrder(id : Long){

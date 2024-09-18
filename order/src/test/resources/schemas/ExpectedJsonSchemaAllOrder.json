@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PaginatedOrdersResponse",
+  "type": "object",
+  "properties": {
+    "totalPages": {
+      "type": "integer",
+      "description": "Total de páginas"
+    },
+    "totalElements": {
+      "type": "integer",
+      "description": "Total de ordens"
+    },
+    "pageable": {
+      "type": "object",
+      "properties": {
+        "pageNumber": { "type": "integer" },
+        "pageSize": { "type": "integer" },
+        "sort": {
+          "type": "object",
+          "properties": {
+            "sorted": { "type": "boolean" },
+            "unsorted": { "type": "boolean" },
+            "empty": { "type": "boolean" }
+          }
+        },
+        "offset": { "type": "integer" },
+        "paged": { "type": "boolean" },
+        "unpaged": { "type": "boolean" }
+      }
+    },
+    "size": { "type": "integer" },
+    "number": { "type": "integer" },
+    "sort": {
+      "type": "object",
+      "properties": {
+        "sorted": { "type": "boolean" },
+        "unsorted": { "type": "boolean" },
+        "empty": { "type": "boolean" }
+      }
+    },
+    "numberOfElements": { "type": "integer" },
+    "first": { "type": "boolean" },
+    "last": { "type": "boolean" },
+    "empty": { "type": "boolean" },
+    "content": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Order"
+      },
+      "description": "Lista de ordens na página atual"
+    }
+  },
+  "required": ["totalPages", "totalElements", "pageable", "size", "number", "numberOfElements", "first", "last", "empty", "content", "sort"],
+  "additionalProperties": false,
+  "definitions": {
+    "Order": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "ID gerado automaticamente"
+        },
+        "listOfProducts": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "description": "Lista de IDs dos produtos",
+          "minItems": 1
+        },
+        "clientEmail": {
+          "type": "string",
+          "description": "Email do cliente",
+          "format": "email"
+        },
+        "address": {
+          "type": "string",
+          "description": "Endereço do cliente"
+        },
+        "totalPrice": {
+          "type": "number",
+          "description": "Preço total da ordem"
+        },
+        "date": {
+          "type": "string",
+          "description": "Data do pedido",
+          "format": "date-time"
+        }
+      },
+      "required": ["listOfProducts", "clientEmail", "date"],
+      "additionalProperties": false
+    }
+  }
+}

@@ -21,7 +21,13 @@
     },
     {
       "name": "address",
-      "type": "string"
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "totalPrice",
+      "type": ["null", "double"],
+      "default": null
     },
     {
       "name": "date",

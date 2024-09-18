@@ -1,16 +1,18 @@
 package br.com.challenge2.order.core.domain
 
+import br.com.challenge2.order.infra.converter.SetOfLongsConverter
 import jakarta.persistence.*
 import java.time.OffsetDateTime
 
 @Entity
-@Table(name = "order")
+@Table(name = "t_order")
 class Order (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id : Long? = null,
+    private var id : Long?,
 
     @Column(name = "products", nullable = false)
+    @Convert(converter = SetOfLongsConverter::class)
     private var listOfProducts : Set<Long>,
 
     @Column(name = "email", nullable = false)
@@ -25,6 +27,14 @@ class Order (
     @Column(name = "date_order", nullable = false)
     private var date : OffsetDateTime
 ){
+    constructor() : this(
+        id = null,
+        listOfProducts = emptySet(),
+        clientEmail = "",
+        address = "",
+        totalPrice = 0.0,
+        date = OffsetDateTime.now()
+    )
     // Getters
     fun getId(): Long? {
         return id

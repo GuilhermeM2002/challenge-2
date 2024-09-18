@@ -19,22 +19,22 @@ class OrderController {
     @PostMapping
     @Transactional
     fun registerOrder(@RequestBody dto : OrderDto, builder : UriComponentsBuilder) : ResponseEntity<OrderDto> {
-        val uri = builder.path("/order/{id}").buildAndExpand(dto.id).toUri()
         val order = service.persistOrder(dto)
+        val uri = builder.path("/order/{id}").buildAndExpand(order.id).toUri()
 
         return ResponseEntity.created(uri).body(order)
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @Transactional
-    fun removeOrder(@RequestParam id : Long) : ResponseEntity<Void> {
+    fun removeOrder(@PathVariable id : Long) : ResponseEntity<Void> {
         service.deleteOrder(id)
 
         return ResponseEntity.noContent().build()
     }
 
     @GetMapping("/{id}")
-    fun findOneOrder(@RequestParam id : Long) : ResponseEntity<OrderDto> {
+    fun findOneOrder(@PathVariable id : Long) : ResponseEntity<OrderDto> {
         val order : OrderDto = service.findOrderById(id)
 
         return ResponseEntity.ok(order)

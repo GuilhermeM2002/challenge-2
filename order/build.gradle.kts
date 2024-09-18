@@ -43,7 +43,10 @@ dependencies {
 	implementation("io.confluent:kafka-schema-registry-client:7.6.0")
 	// https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka
 	implementation("org.springframework.kafka:spring-kafka:3.2.0")
-	compileOnly("org.projectlombok:lombok")
+	// https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+	testImplementation("io.rest-assured:rest-assured:5.4.0")
+	// https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator
+	implementation("io.rest-assured:json-schema-validator:5.4.0")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.mysql:mysql-connector-j")
 	annotationProcessor("org.projectlombok:lombok")
