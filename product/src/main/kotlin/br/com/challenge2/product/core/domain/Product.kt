@@ -8,7 +8,7 @@ import jakarta.persistence.*
 class Product (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id : Long? = null,
+    private var id : Long?,
 
     @Column(name = "name", nullable = false)
     private var name : String,
@@ -22,6 +22,8 @@ class Product (
     @Column(name = "quantity", nullable = false)
     private var quantity : Int
 ){
+    constructor() : this(null, "", "", 0.0, 0)
+
     // Getters
     fun getId(): Long? = id
     fun getName(): String = name

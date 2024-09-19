@@ -15,10 +15,10 @@ class SendListOfProductsUseCaseImpl : SendListOfProductsUseCase{
     @Autowired
     private lateinit var mapper: ModelMapper
 
-    override fun sendListOfProducts(products: MutableSet<Product>) {
+    override fun sendListOfProducts(id : Long, products: MutableSet<Product>) {
         val productsAvro : List<ProductAvro> = products.map {
             product: Product -> mapper.map(product, ProductAvro::class.java) }
 
-        kafkaTemplate.send("product", productsAvro)
+        kafkaTemplate.send("product", id.toString(), productsAvro)
     }
 }

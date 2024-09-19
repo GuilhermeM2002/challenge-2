@@ -43,7 +43,10 @@ dependencies {
 	implementation("org.springframework.kafka:spring-kafka:3.2.0")
 	// https://mvnrepository.com/artifact/org.modelmapper/modelmapper
 	implementation("org.modelmapper:modelmapper:2.1.1")
-	compileOnly("org.projectlombok:lombok")
+	// https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+	testImplementation("io.rest-assured:rest-assured:5.4.0")
+	// https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator
+	implementation("io.rest-assured:json-schema-validator:5.4.0")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.mysql:mysql-connector-j")
 	annotationProcessor("org.projectlombok:lombok")

@@ -25,24 +25,24 @@ class ProductController {
         return ResponseEntity.created(uri).body(product)
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
-    fun editProduct(@RequestBody dto : ProductDto, @RequestParam id : Long) : ResponseEntity<ProductDto>{
+    fun editProduct(@RequestBody dto : ProductDto, @PathVariable id : Long) : ResponseEntity<ProductDto>{
         val product : ProductDto = service.updateProduct(dto, id)
 
         return ResponseEntity.ok(product)
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @Transactional
-    fun removeProduct(@RequestParam id : Long) : ResponseEntity<Void> {
+    fun removeProduct(@PathVariable id : Long) : ResponseEntity<Void> {
         service.deleteProduct(id)
 
         return ResponseEntity.noContent().build()
     }
 
     @GetMapping("/{id}")
-    fun findOneProduct(@RequestParam id : Long) : ResponseEntity<ProductDto> {
+    fun findOneProduct(@PathVariable id : Long) : ResponseEntity<ProductDto> {
         val product : ProductDto = service.findProductById(id)
 
         return ResponseEntity.ok(product)

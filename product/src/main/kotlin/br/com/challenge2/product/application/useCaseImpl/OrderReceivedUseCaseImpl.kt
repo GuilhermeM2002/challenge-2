@@ -29,11 +29,11 @@ class OrderReceivedUseCaseImpl : OrderReceivedUseCase{
 
         val listOfProducts: MutableSet<Product> = mutableSetOf()
 
-        for (item in order.listOfId) {
+        for (item in order.listOfProducts) {
             val product = productRepository.findById(item).orElseThrow{ EntityNotFoundException() }
             product.let { listOfProducts.add(it) }
         }
 
-        sendProducts.sendListOfProducts(listOfProducts)
+        sendProducts.sendListOfProducts(order.id, listOfProducts)
     }
 }

@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Product",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": ["integer", "null"],
+      "description": "Unique identifier for the product"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the product"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the product"
+    },
+    "price": {
+      "type": "number",
+      "description": "Price of the product"
+    },
+    "quantity": {
+      "type": "integer",
+      "description": "Available quantity of the product"
+    }
+  },
+  "required": ["name", "description", "price", "quantity"]
+}
