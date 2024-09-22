@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Client",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": ["integer", "null"],
+      "description": "ID único do cliente, gerado automaticamente."
+    },
+    "name": {
+      "type": "string",
+      "description": "Nome do cliente.",
+      "minLength": 1
+    },
+    "email": {
+      "type": "string",
+      "description": "Email do cliente, deve ser único.",
+      "format": "email"
+    },
+    "addresses": {
+      "type": "array",
+      "description": "Lista de endereços associados ao cliente.",
+      "items": {
+        "$ref": "#/definitions/Address"
+      },
+      "default": []
+    }
+  },
+  "required": ["name", "email"],
+  "definitions": {
+    "Address": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": ["integer", "null"],
+          "description": "ID único do endereço, gerado automaticamente."
+        },
+        "street": {
+          "type": "string",
+          "description": "Rua do endereço.",
+          "minLength": 1
+        },
+        "city": {
+          "type": "string",
+          "description": "Cidade do endereço.",
+          "minLength": 1
+        },
+        "state": {
+          "type": "string",
+          "description": "Estado do endereço.",
+          "minLength": 1
+        },
+        "zipcode": {
+          "type": "string",
+          "description": "Código postal do endereço.",
+          "minLength": 1
+        },
+        "country": {
+          "type": "string",
+          "description": "País do endereço.",
+          "minLength": 1
+        },
+        "client": {
+          "type": ["object", "null"],
+          "description": "Cliente associado ao endereço."
+        }
+      },
+      "required": ["street", "city", "state", "zipcode", "country"]
+    }
+  }
+}

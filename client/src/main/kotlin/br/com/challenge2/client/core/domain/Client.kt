@@ -1,6 +1,7 @@
 package br.com.challenge2.client.core.domain
 
 import br.com.challenge2.client.application.dto.ClientDto
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import jakarta.persistence.*
 
 @Entity
@@ -8,7 +9,7 @@ import jakarta.persistence.*
 data class Client (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id : Long? = null,
+    private var id : Long?,
 
     @Column(name = "name", nullable = false)
     private var name : String,
@@ -17,8 +18,12 @@ data class Client (
     private var email : String,
 
     @OneToMany(mappedBy = "client", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @JsonManagedReference
     private var addresses: List<Address> = mutableListOf()
 ){
+
+    constructor() : this(null, "", "", mutableListOf())
+
     // Getters
     fun getId(): Long? {
         return id

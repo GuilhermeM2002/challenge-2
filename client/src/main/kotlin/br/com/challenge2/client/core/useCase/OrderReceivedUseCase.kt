@@ -1,7 +1,7 @@
 package br.com.challenge2.client.core.useCase
 
-import br.com.challenge2.client.application.dto.OrderReceivedDto
+import org.apache.avro.generic.GenericRecord
 
 interface OrderReceivedUseCase {
-    fun orderReceived(dto : OrderReceivedDto)
+    fun orderReceived(data : GenericRecord)
 }

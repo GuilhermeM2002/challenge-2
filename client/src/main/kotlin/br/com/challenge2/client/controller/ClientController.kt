@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -30,24 +31,24 @@ class ClientController {
         return ResponseEntity.created(uri).body(client)
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
-    fun editClient(@RequestBody dto : ClientDto, @RequestParam id : Long) : ResponseEntity<ClientDto>{
+    fun editClient(@RequestBody dto : ClientDto, @PathVariable id : Long) : ResponseEntity<ClientDto>{
         val client : ClientDto = service.updateClient(dto, id)
 
         return ResponseEntity.ok(client)
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @Transactional
-    fun removeClient(@RequestParam id : Long) : ResponseEntity<Void>{
+    fun removeClient(@PathVariable id : Long) : ResponseEntity<Void>{
         service.deleteClient(id)
 
         return ResponseEntity.noContent().build()
     }
 
-    @GetMapping
-    fun findClient(@RequestParam email : String) : ResponseEntity<ClientDto>{
+    @GetMapping("/{email}")
+    fun findClient(@PathVariable email : String) : ResponseEntity<ClientDto>{
         val client : ClientDto = service.findClientByEmail(email)
 
         return ResponseEntity.ok(client)
