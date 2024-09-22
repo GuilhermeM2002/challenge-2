@@ -1,10 +1,12 @@
-create table address(
-    id bigint not null auto_increment,
-    street varchar(80) not null,
-    city varchar(80) not null,
-    state varchar(80) not null,
-    zipcode varchar(80) not null,
-    country varchar(80) not null,
+CREATE TABLE address (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    street VARCHAR(80) NOT NULL,
+    city VARCHAR(80) NOT NULL,
+    state VARCHAR(80) NOT NULL,
+    zipcode VARCHAR(80) NOT NULL,
+    country VARCHAR(80) NOT NULL,
+    client_id BIGINT NOT NULL,
 
-    primary key (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (client_id) REFERENCES client(id) ON DELETE CASCADE
 );

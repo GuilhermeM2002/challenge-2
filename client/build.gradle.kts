@@ -45,7 +45,10 @@ dependencies {
 	implementation("org.modelmapper:modelmapper:2.1.1")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.mysql:mysql-connector-j")
-	annotationProcessor("org.projectlombok:lombok")
+	// https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+	testImplementation("io.rest-assured:rest-assured:5.4.0")
+	// https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator
+	implementation("io.rest-assured:json-schema-validator:5.4.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")

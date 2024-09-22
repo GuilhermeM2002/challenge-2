@@ -1,5 +1,7 @@
 package br.com.challenge2.client.core.domain
 
+import br.com.challenge2.client.application.dto.AddressDto
+import com.fasterxml.jackson.annotation.JsonBackReference
 import jakarta.persistence.*
 
 @Entity
@@ -7,7 +9,7 @@ import jakarta.persistence.*
 data class Address(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id: Long? = null,
+    private var id: Long?,
 
     @Column(name = "street", nullable = false)
     private var street: String,
@@ -26,8 +28,12 @@ data class Address(
 
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
-    private var client: Client? = null
+    @JsonBackReference
+    private var client: Client?
 ){
+
+    constructor() : this(null, "", "", "", "", "", null)
+
     // Getters
     fun getId(): Long? {
         return id
@@ -80,5 +86,13 @@ data class Address(
 
     fun setClient(client: Client?) {
         this.client = client
+    }
+
+    fun updateAddress(dto : AddressDto){
+        street = dto.street
+        city = dto.city
+        state = dto.state
+        zipcode = dto.zipcode
+        country = dto.country
     }
 }

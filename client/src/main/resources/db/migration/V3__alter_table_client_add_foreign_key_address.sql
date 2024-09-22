@@ -1,1 +1,0 @@
-alter table client add constraint client_address_fk foreign key (address_fk) references address (id);
