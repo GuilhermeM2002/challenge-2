@@ -19,7 +19,7 @@ class AddressController {
     @PostMapping
     @Transactional
     fun registerAddress(@RequestBody dto : AddressDto, builder : UriComponentsBuilder) : ResponseEntity<AddressDto> {
-        val uri = builder.path("/product/{id}").buildAndExpand(dto.id).toUri()
+        val uri = builder.path("/address/{id}").buildAndExpand(dto.id).toUri()
         val address = service.persistAddress(dto)
 
         return ResponseEntity.created(uri).body(address)
