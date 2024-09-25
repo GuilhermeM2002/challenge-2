@@ -1,11 +1,14 @@
 package br.com.challenge2.client.service
 
+import br.com.challenge2.client.application.dto.AddressDto
 import br.com.challenge2.client.core.domain.Client
 import br.com.challenge2.client.application.dto.ClientDto
 import br.com.challenge2.client.repository.ClientRepository
 import jakarta.persistence.EntityNotFoundException
 import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -44,5 +47,12 @@ class ClientService {
         val client : Client= clientRepository.findByEmail(email)
 
         return mapper.map(client, ClientDto::class.java)
+    }
+
+    fun findAllClient (pageable: Pageable) : Page<ClientDto> {
+        val clients = clientRepository.findAll(pageable).map{
+                address -> mapper.map(address, ClientDto::class.java)}
+
+        return clients
     }
 }

@@ -104,4 +104,15 @@ class ClientControllerTest {
             .body(matchesJsonSchemaInClasspath("schemas/ExpectedJsonSchemaClient.json"))
             .log().all()
     }
+
+    @Test
+    fun findAllAddress() {
+        given()
+            .`when`()
+            .get(uri)
+            .then()
+            .statusCode(200)
+            .body(matchesJsonSchemaInClasspath("schemas/ExpectedJsonSchemaAllClients.json"))
+            .log().all()
+    }
 }

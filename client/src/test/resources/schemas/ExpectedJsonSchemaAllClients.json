@@ -1,0 +1,124 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PaginatedClientResponse",
+  "type": "object",
+  "properties": {
+    "totalPages": {
+      "type": "integer",
+      "description": "Total de páginas"
+    },
+    "totalElements": {
+      "type": "integer",
+      "description": "Total de clientes"
+    },
+    "pageable": {
+      "type": "object",
+      "properties": {
+        "pageNumber": { "type": "integer" },
+        "pageSize": { "type": "integer" },
+        "sort": {
+          "type": "object",
+          "properties": {
+            "sorted": { "type": "boolean" },
+            "unsorted": { "type": "boolean" },
+            "empty": { "type": "boolean" }
+          }
+        },
+        "offset": { "type": "integer" },
+        "paged": { "type": "boolean" },
+        "unpaged": { "type": "boolean" }
+      }
+    },
+    "size": { "type": "integer" },
+    "number": { "type": "integer" },
+    "sort": {
+      "type": "object",
+      "properties": {
+        "sorted": { "type": "boolean" },
+        "unsorted": { "type": "boolean" },
+        "empty": { "type": "boolean" }
+      }
+    },
+    "numberOfElements": { "type": "integer" },
+    "first": { "type": "boolean" },
+    "last": { "type": "boolean" },
+    "empty": { "type": "boolean" },
+    "content": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Client"
+      },
+      "description": "Lista de clientes na página atual"
+    }
+  },
+  "required": [
+    "totalPages",
+    "totalElements",
+    "pageable",
+    "size",
+    "number",
+    "numberOfElements",
+    "first",
+    "last",
+    "empty",
+    "content",
+    "sort"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "Client": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": ["integer", "null"],
+          "description": "ID gerado automaticamente"
+        },
+        "name": {
+          "type": "string",
+          "description": "Nome do cliente"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email do cliente",
+          "format": "email"
+        },
+        "addresses": {
+          "type": "array",
+          "description": "Lista de endereços associados ao cliente",
+          "items": {
+            "$ref": "#/definitions/Address"
+          }
+        }
+      },
+      "required": ["name", "email", "addresses"],
+      "additionalProperties": false
+    },
+    "Address": {
+      "type": "object",
+      "properties": {
+        "street": {
+          "type": "string",
+          "description": "Nome da rua"
+        },
+        "city": {
+          "type": "string",
+          "description": "Cidade do endereço"
+        },
+        "state": {
+          "type": "string",
+          "description": "Estado do endereço"
+        },
+        "zipcode": {
+          "type": "string",
+          "description": "CEP do endereço"
+        },
+        "country": {
+          "type": "string",
+          "description": "País do endereço"
+        }
+      },
+      "required": ["street", "city", "state", "zipcode", "country"],
+      "additionalProperties": false
+    }
+  }
+}

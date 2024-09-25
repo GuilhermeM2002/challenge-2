@@ -1,8 +1,11 @@
 package br.com.challenge2.client.controller
 
+import br.com.challenge2.client.application.dto.AddressDto
 import br.com.challenge2.client.application.dto.ClientDto
 import br.com.challenge2.client.service.ClientService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -52,5 +55,12 @@ class ClientController {
         val client : ClientDto = service.findClientByEmail(email)
 
         return ResponseEntity.ok(client)
+    }
+
+    @GetMapping
+    fun findAllClient(pageable: Pageable) : ResponseEntity<Page<ClientDto>> {
+        val allClients = service.findAllClient(pageable)
+
+        return ResponseEntity.ok(allClients)
     }
 }

@@ -42,6 +42,10 @@ data class Client (
     }
 
     // Setters
+    fun setId(id: Long){
+        this.id = id
+    }
+
     fun setName(name: String) {
         this.name = name
     }
