@@ -61,6 +61,10 @@ class Order (
     }
 
     // Setters
+    fun setId(id: Long?){
+        this.id = id
+    }
+
     fun setListOfProducts(listOfProducts: Set<Long>) {
         this.listOfProducts = listOfProducts
     }
