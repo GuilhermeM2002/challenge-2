@@ -17,7 +17,7 @@ data class Client (
     @Column(name = "email", nullable = false, unique = true)
     private var email : String,
 
-    @OneToMany(mappedBy = "client", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "client", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     @JsonManagedReference
     private var addresses: List<Address> = mutableListOf()
 ){

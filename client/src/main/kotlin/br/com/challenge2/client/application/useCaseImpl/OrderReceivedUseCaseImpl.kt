@@ -40,6 +40,6 @@ class OrderReceivedUseCaseImpl : OrderReceivedUseCase {
             .map { address: Address ->  mapper
                 .map(address, br.com.challenge2.client.avro.Address::class.java) }
 
-        kafkaTemplate.send("client", order.orderId.toString(), clientAvro)
+        kafkaTemplate.send("client", order.id.toString(), clientAvro)
     }
 }
