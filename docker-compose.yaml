@@ -67,20 +67,24 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     networks:
       - challenge-2
+
   kafka-connect:
     image: confluentinc/cp-kafka-connect:latest
     depends_on:
       - kafka-broker-1
       - db
     ports:
-      - "8083:8083"  # Porta para acessar a REST API do Kafka Connect
+      - "8083:8083"
     environment:
-      CONNECT_BOOTSTRAP_SERVERS: "kafka:9092"
+      CONNECT_BOOTSTRAP_SERVERS: "kafka-broker-1:29092"
       CONNECT_REST_ADVERTISED_HOST_NAME: "kafka-connect"
       CONNECT_GROUP_ID: "kafka-connect-group"
       CONNECT_CONFIG_STORAGE_TOPIC: "kafka-connect-configs"
       CONNECT_OFFSET_STORAGE_TOPIC: "kafka-connect-offsets"
       CONNECT_STATUS_STORAGE_TOPIC: "kafka-connect-status"
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
       CONNECT_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
       CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
       CONNECT_INTERNAL_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
@@ -92,6 +96,7 @@ services:
       - ./kafka-connect-configs:/etc/kafka-connect/configs
     networks:
       - challenge-2
+
 networks:
   challenge-2:
     driver: bridge
