@@ -16,11 +16,11 @@ services:
     image: consul:1.9.7
     container_name: consul
     ports:
-      - "8500:8500"  # UI
-      - "8600:8600/udp"  # DNS
-      - "8400:8400"  # RPC
-      - "8301:8301"  # Serf LAN
-      - "8302:8302"  # Serf WAN
+      - "8500:8500"
+      - "8600:8600/udp"
+      - "8400:8400"
+      - "8301:8301"
+      - "8302:8302"
     command: "agent -dev -client=0.0.0.0"
     networks:
       - challenge-2
@@ -68,6 +68,26 @@ services:
     networks:
       - challenge-2
 
+  control-center:
+    image: confluentinc/cp-enterprise-control-center:latest
+    depends_on:
+      - kafka-broker-1
+      - schema-registry
+    ports:
+      - "9021:9021"
+    environment:
+      CONTROL_CENTER_BOOTSTRAP_SERVERS: kafka-broker-1:29092
+      CONTROL_CENTER_ZOOKEEPER_CONNECT: zookeeper:2181
+      CONTROL_CENTER_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_REPLICATION: 1
+      CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
+      CONTROL_CENTER_CONNECT_CLUSTER_REPLICATION: 1
+      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_REPLICATION_FACTOR: 1
+      CONTROL_CENTER_REPLICATION_FACTOR: 1
+    networks:
+      - challenge-2
+
+
   kafka-connect:
     image: confluentinc/cp-kafka-connect:latest
     depends_on:
@@ -100,3 +120,4 @@ services:
 networks:
   challenge-2:
     driver: bridge
+
